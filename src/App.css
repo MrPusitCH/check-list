@@ -24,6 +24,45 @@ h1 {
   font-size: 16px;
 }
 
+.summary-box {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.summary-item {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 16px;
+  text-align: center;
+  border: 1px solid #e0e0e0;
+}
+
+.summary-item.highlight {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  border: none;
+}
+
+.summary-item.highlight .summary-label,
+.summary-item.highlight .summary-value {
+  color: white;
+}
+
+.summary-label {
+  display: block;
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 4px;
+}
+
+.summary-value {
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+}
+
 .progress-bar {
   background: #e0e0e0;
   border-radius: 20px;
@@ -260,7 +299,19 @@ h1 {
 .export-footer p {
   color: #666;
   font-size: 14px;
+  margin: 4px 0;
+}
+
+.export-summary {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 16px;
+}
+
+.export-result {
   font-weight: bold;
+  font-size: 16px;
+  color: #4caf50;
 }
 
 @media (max-width: 600px) {
@@ -270,6 +321,14 @@ h1 {
   
   h1 {
     font-size: 22px;
+  }
+  
+  .summary-box {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .summary-value {
+    font-size: 16px;
   }
   
   .btn {

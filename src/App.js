@@ -36,6 +36,16 @@ function App() {
     return Object.values(checkedItems).filter(Boolean).length;
   };
 
+  const getPercentage = () => {
+    const total = getTotalItems();
+    if (total === 0) return 0;
+    return ((getCheckedCount() / total) * 100).toFixed(1);
+  };
+
+  const getSectionCount = () => {
+    return checklistData.length;
+  };
+
   const exportToImage = async () => {
     const element = exportRef.current;
     if (!element) return;
@@ -92,13 +102,32 @@ function App() {
         <h1>📋 Checklist เว็บแอปพลิเคชัน</h1>
         <p className="subtitle">ข้อกำหนด 1.1.4 - ความสามารถของเว็บแอปพลิเคชัน</p>
         
+        <div className="summary-box">
+          <div className="summary-item">
+            <span className="summary-label">หัวข้อทั้งหมด</span>
+            <span className="summary-value">{getSectionCount()} หัวข้อ</span>
+          </div>
+          <div className="summary-item">
+            <span className="summary-label">รายการทั้งหมด</span>
+            <span className="summary-value">{getTotalItems()} รายการ</span>
+          </div>
+          <div className="summary-item">
+            <span className="summary-label">เลือกแล้ว</span>
+            <span className="summary-value">{getCheckedCount()} รายการ</span>
+          </div>
+          <div className="summary-item highlight">
+            <span className="summary-label">ความคืบหน้า</span>
+            <span className="summary-value">{getPercentage()}%</span>
+          </div>
+        </div>
+
         <div className="progress-bar">
           <div 
             className="progress-fill" 
-            style={{ width: `${(getCheckedCount() / getTotalItems()) * 100}%` }}
+            style={{ width: `${getPercentage()}%` }}
           />
           <span className="progress-text">
-            {getCheckedCount()} / {getTotalItems()} รายการ
+            {getCheckedCount()} / {getTotalItems()} รายการ ({getPercentage()}%)
           </span>
         </div>
 
@@ -159,7 +188,10 @@ function App() {
             ))}
 
             <div className="export-footer">
-              <p>ผ่าน: {getCheckedCount()} / {getTotalItems()} รายการ</p>
+              <div className="export-summary">
+                <p>หัวข้อทั้งหมด: {getSectionCount()} หัวข้อ | รายการทั้งหมด: {getTotalItems()} รายการ</p>
+                <p className="export-result">ผ่าน: {getCheckedCount()} / {getTotalItems()} รายการ ({getPercentage()}%)</p>
+              </div>
             </div>
           </div>
         ))}
